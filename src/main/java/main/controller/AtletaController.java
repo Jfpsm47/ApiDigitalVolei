@@ -61,10 +61,9 @@ public class AtletaController {
 	}
 	
 	@GetMapping("/listar")
-	public List<Atleta> listarAtleta() {
-		List<Atleta> atletas = repository.findAll();
-		System.out.println(atletas);
-		return atletas;
+	public ResponseEntity listarAtleta() {
+		if(repository.findAll().isEmpty())return ResponseEntity.badRequest().body("Nenhum atleta cadastrado ainda!");
+		return ResponseEntity.ok(repository.findAll());
 	}
 	
 	@GetMapping("/listar/{nome}")
